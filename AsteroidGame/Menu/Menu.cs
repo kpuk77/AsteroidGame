@@ -13,13 +13,14 @@ namespace AsteroidGame.Menu
         private static Random rand;
         private static MenuVisualObject[] _VisualObjects;
 
-        const int VISUAL_OBJECTS_COUNT = 3000;
+        const int VISUAL_OBJECTS_COUNT = 5000;
 
         public static int Width { get; set; }
         public static int Height { get; set; }
 
         public  static void Initialize(Form GameForm)
         {
+            InitializeControls(GameForm);
             rand = new Random();
 
             Width = GameForm.ClientSize.Width;
@@ -34,6 +35,30 @@ namespace AsteroidGame.Menu
             timer.Start();
         }
 
+        private static void InitializeControls(Form GameForm)
+        {
+            Button btnStart = new Button();
+            btnStart.Text = "Новая игра";
+            btnStart.Size = new Size(60, 20);
+            btnStart.Location = new Point(Width / 2 - btnStart.Size.Width / 2, Height / 2 - btnStart.Size.Height);
+            GameForm.Controls.Add(btnStart);
+            btnStart.BringToFront();
+
+            Button btnRecords = new Button();
+            btnRecords.Text = "Рекорды";
+            btnRecords.Size = btnStart.Size;
+            btnRecords.Location = new Point(btnStart.Location.X, btnStart.Location.Y - btnRecords.Size.Height + 5);
+            GameForm.Controls.Add(btnRecords);
+            btnRecords.BringToFront();
+
+            Button btnExit = new Button();
+            btnExit.Text = "Выход";
+            btnExit.Size = btnStart.Size;
+            btnExit.Location = new Point(btnStart.Location.X, btnRecords.Location.Y - btnExit.Size.Height + 5);
+            GameForm.Controls.Add(btnExit);
+            btnExit.BringToFront();
+        }
+
         private static void OnTimerTick(object sender, EventArgs e)
         {
             Update();
@@ -45,7 +70,7 @@ namespace AsteroidGame.Menu
             _VisualObjects = new MenuVisualObject[VISUAL_OBJECTS_COUNT];
             for (int i = 0; i < _VisualObjects.Length; i++)
             {
-                _VisualObjects[i] = new MenuVisualObject(
+                _VisualObjects[i] = new ScreenStar(
                     rand.Next(-Width, Width),
                     rand.Next(-Height,Height),
                     rand.Next(1, Width));

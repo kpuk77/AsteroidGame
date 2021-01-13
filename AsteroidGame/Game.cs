@@ -45,13 +45,31 @@ namespace AsteroidGame
 
             __GameObjects = new VisualObject[VISUAL_OBJECTS_COUNT];
 
-            for (int i = 0; i < __GameObjects.Length; i++)
+            for (int i = 0; i < __GameObjects.Length / 3; i++)
             {
                 int size = rand.Next(10, 20);
                 __GameObjects[i] = new VisualObject(
                     new Point(rand.Next(0, Width), rand.Next(0, Height)),
                     new Point(rand.Next(-15, 15), rand.Next(-15, 15)),
                     new Size(size, size));
+            }
+
+            for (int i = __GameObjects.Length / 3; i < __GameObjects.Length - __GameObjects.Length / 3; i++)
+            {
+                int size = rand.Next(3, 10);
+                __GameObjects[i] = new RoundStar(
+                    new Point(rand.Next(0, Width), rand.Next(0, Height)),
+                    new Point(rand.Next(-5, -1), 0),
+                    size);
+            }
+
+            for (int i = __GameObjects.Length - __GameObjects.Length / 3; i < __GameObjects.Length; i++)
+            {
+                int size = rand.Next(3, 10);
+                __GameObjects[i] = new Star(
+                    new Point(rand.Next(0, Width), rand.Next(0, Height)),
+                    new Point(rand.Next(-15, -5), 0),
+                    size);
             }
         }
 

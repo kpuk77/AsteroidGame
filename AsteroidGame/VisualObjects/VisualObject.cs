@@ -18,7 +18,7 @@ namespace AsteroidGame
             _Size = Size;
         }
 
-        public void Draw(Graphics g)
+        public virtual void Draw(Graphics g)
         {
             g.DrawEllipse(
                 Pens.White,
@@ -26,7 +26,7 @@ namespace AsteroidGame
                 _Size.Width, _Size.Height);
         }
 
-        public void Update()
+        public virtual void Update()
         {
             _Position.X = (_Position.X + _Direction.X + Game.Width) % Game.Width;
             _Position.Y = (_Position.Y + _Direction.Y + Game.Height) % Game.Height;

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using AsteroidGame.Menu;
+
 namespace AsteroidGame
 {
     static class Program
@@ -29,9 +31,13 @@ namespace AsteroidGame
 
             game_form.Show();
 
-            Game.Initialize(game_form);
-            Game.Load();
-            Game.Draw();
+            Menu.Menu.Initialize(game_form);
+            Menu.Menu.Load();
+            Menu.Menu.Draw();
+
+            //Game.Initialize(game_form);
+            //Game.Load();
+            //Game.Draw();
 
             Application.Run(game_form);
         }

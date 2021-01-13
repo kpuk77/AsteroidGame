@@ -28,6 +28,10 @@ namespace AsteroidGame
             game_form.FormBorderStyle = FormBorderStyle.Fixed3D;
 
             game_form.Show();
+
+            Game.Initialize(game_form);
+            Game.Draw();
+
             Application.Run(game_form);
         }
     }

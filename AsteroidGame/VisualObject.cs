@@ -28,17 +28,8 @@ namespace AsteroidGame
 
         public void Update()
         {
-            _Position.X += _Direction.X;
-            _Position.Y += _Direction.Y;
-
-            if (_Position.X < 0)
-                _Direction.X *= -1;
-            if (_Position.Y < 0)
-                _Direction.Y *= -1;
-            if (_Position.X > 800 - _Size.Width)
-                _Direction.X *= -1;
-            if (_Position.Y > Game.Height - _Size.Width)
-                _Direction.Y *= -1;
+            _Position.X = (_Position.X + _Direction.X + Game.Width) % Game.Width;
+            _Position.Y = (_Position.Y + _Direction.Y + Game.Height) % Game.Height;
         }
 
     }

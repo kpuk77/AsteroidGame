@@ -11,12 +11,16 @@ namespace AsteroidGame
 
         private static VisualObject[] __GameObjects;
 
-        public static int Width { get; set; }
-        public static int Height { get; set; }
+        private static Random rand;
+
+        public static int Width { get; set; } = 0;
+        public static int Height { get; set; } = 0;
         public static void Initialize(Form GameForm)
         {
-            Width = GameForm.Width;
-            Height = GameForm.Height;
+            Width = GameForm.ClientSize.Width;
+            Height = GameForm.ClientSize.Height;
+
+            rand = new Random();
 
             __Context = BufferedGraphicsManager.Current;
             Graphics g = GameForm.CreateGraphics();
@@ -36,16 +40,18 @@ namespace AsteroidGame
 
         public static void Load()
         {
+            
             const int VISUAL_OBJECTS_COUNT = 30;
 
             __GameObjects = new VisualObject[VISUAL_OBJECTS_COUNT];
 
             for (int i = 0; i < __GameObjects.Length; i++)
             {
+                int size = rand.Next(10, 20);
                 __GameObjects[i] = new VisualObject(
-                    new Point(600, i * 20),
-                    new Point(15 - i, 20 - i),
-                    new Size(20, 20));
+                    new Point(rand.Next(0, Width), rand.Next(0, Height)),
+                    new Point(rand.Next(-15, 15), rand.Next(-15, 15)),
+                    new Size(size, size));
             }
         }
 

@@ -16,7 +16,6 @@ namespace AsteroidGame
         private static int __BtnWidth = 80;
         private static int __BtnHeight = 30;
 
-
         public static void InitializeControls(Form GameForm)
         {
             __BtnStart = new Button();

@@ -10,6 +10,7 @@ namespace AsteroidGame
         private static BufferedGraphics __Buffer;
 
         private static VisualObject[] __GameObjects;
+        private static Timer __Timer;
 
         private static Random rand;
 
@@ -26,10 +27,17 @@ namespace AsteroidGame
             Graphics g = GameForm.CreateGraphics();
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
-            Timer timer = new Timer() { Interval = 100 };
+            __Timer = new Timer() { Interval = 100 };
 
-            timer.Tick += OnTimerTick;
-            timer.Start();
+            __Timer.Tick += OnTimerTick;
+        }
+
+        public static void TimerStatus(bool status)
+        {
+            if (status)
+                __Timer.Start();
+            else
+                __Timer.Stop();
         }
 
         private static void OnTimerTick(object sender, EventArgs e)

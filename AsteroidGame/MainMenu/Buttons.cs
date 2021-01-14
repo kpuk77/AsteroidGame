@@ -49,10 +49,13 @@ namespace AsteroidGame
 
         private static void __BtnStart_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Как реализовать запуск ?", "Эмм?", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            MessageBox.Show("Как реализовать запуск без костылей ?", "Эмм?", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            Menu.TimerStatus(false);
+            Game.TimerStatus(true);
+            ButtonsVisible(false);
         }
 
-        private static void __BtnExit_Click(object sender, EventArgs e)
+        static private void __BtnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -74,6 +77,13 @@ namespace AsteroidGame
             DrawBtn(__BtnStart);
             DrawBtn(__BtnRecords);
             DrawBtn(__BtnExit);
+        }
+
+        static private void ButtonsVisible(bool Status)
+        {
+            __BtnStart.Visible = Status;
+            __BtnRecords.Visible = Status;
+            __BtnExit.Visible = Status;
         }
     }
 }

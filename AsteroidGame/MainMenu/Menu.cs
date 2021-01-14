@@ -12,6 +12,7 @@ namespace AsteroidGame
         private static BufferedGraphics __Buffer;
         private static Random rand;
         private static MenuVisualObject[] _VisualObjects;
+        private static Timer __Timer;
 
         const int VISUAL_OBJECTS_COUNT = 5000;
 
@@ -29,9 +30,17 @@ namespace AsteroidGame
             Graphics g = GameForm.CreateGraphics();
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
-            Timer timer = new Timer() { Interval = 50 };
-            timer.Tick += OnTimerTick;
-            timer.Start();
+            __Timer = new Timer() { Interval = 50 };
+            __Timer.Tick += OnTimerTick;
+            __Timer.Start();
+        }
+
+        public static void TimerStatus(bool status)
+        {
+            if (status)
+                __Timer.Start();
+            else
+                __Timer.Stop();
         }
 
 

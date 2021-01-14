@@ -35,11 +35,11 @@ namespace AsteroidGame
 
             Buttons.InitializeControls(game_form);
             Buttons.Draw();
-            
 
-            //Game.Initialize(game_form);
-            //Game.Load();
-            //Game.Draw();
+
+            Game.Initialize(game_form);
+            Game.Load();
+            Game.Draw();
 
             Application.Run(game_form);
         }

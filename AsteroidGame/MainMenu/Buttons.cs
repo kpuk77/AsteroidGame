@@ -8,14 +8,11 @@ namespace AsteroidGame
 {
     static class Buttons
     {
-        private static BufferedGraphicsContext __Context;
-        private static BufferedGraphics __Buffer;
         private static Button __BtnStart;
         private static Button __BtnRecords;
         private static Button __BtnExit;
         private static int __BtnWidth = 80;
         private static int __BtnHeight = 30;
-
 
         public static void InitializeControls(Form GameForm)
         {
@@ -55,31 +52,12 @@ namespace AsteroidGame
             ButtonsVisible(false);
         }
 
-        static private void __BtnExit_Click(object sender, EventArgs e)
+        private static void __BtnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        static private void DrawBtn(Button btn)
-        {
-            int x = btn.Location.X;
-            int y = btn.Location.Y;
-            int width = btn.Size.Width;
-            int height = btn.Size.Height;
-
-            __Context = BufferedGraphicsManager.Current;
-            Graphics g = btn.CreateGraphics();
-            __Buffer = __Context.Allocate(g, new Rectangle(x, y, width, height));
-        }
-
-        static public void Draw()
-        {
-            DrawBtn(__BtnStart);
-            DrawBtn(__BtnRecords);
-            DrawBtn(__BtnExit);
-        }
-
-        static private void ButtonsVisible(bool Status)
+        private static void ButtonsVisible(bool Status)
         {
             __BtnStart.Visible = Status;
             __BtnRecords.Visible = Status;

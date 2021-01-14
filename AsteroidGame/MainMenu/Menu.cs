@@ -81,7 +81,5 @@ namespace AsteroidGame
                 obj.Update();
             }
         }
-
-       
     }
 }

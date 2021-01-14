@@ -32,10 +32,9 @@ namespace AsteroidGame
             Menu.Initialize(game_form);
             Menu.Load();
             Menu.Draw();
+            InfoText.Initialize(game_form);
 
             Buttons.InitializeControls(game_form);
-            Buttons.Draw();
-
 
             Game.Initialize(game_form);
             Game.Load();

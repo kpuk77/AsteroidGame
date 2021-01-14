@@ -27,5 +27,10 @@ namespace AsteroidGame
         {
             MessageBox.Show("Алексей Ступин, 31 год, учусь в GeekBrains.", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        public static void TextVisible(bool status)
+        {
+            __Label.Visible = status;
+        }
     }
 }

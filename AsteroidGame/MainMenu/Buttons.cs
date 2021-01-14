@@ -50,6 +50,7 @@ namespace AsteroidGame
             Menu.TimerStatus(false);
             Game.TimerStatus(true);
             ButtonsVisible(false);
+            InfoText.TextVisible(false);
         }
 
         private static void __BtnExit_Click(object sender, EventArgs e)

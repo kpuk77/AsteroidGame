@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Drawing;
 
 namespace AsteroidGame
 {
@@ -31,6 +28,5 @@ namespace AsteroidGame
             _Position.X = (_Position.X + _Direction.X + Game.Width) % Game.Width;
             _Position.Y = (_Position.Y + _Direction.Y + Game.Height) % Game.Height;
         }
-
     }
 }

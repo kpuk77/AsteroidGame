@@ -1,14 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace AsteroidGame
 {
     class InfoText
-    { 
+    {
         private static Label __Label;
+        public static bool Visible
+        {
+            get => __Label.Visible;
+            set => __Label.Visible = value;
+        }
 
         public static void Initialize(Form form)
         {
@@ -28,9 +31,9 @@ namespace AsteroidGame
             MessageBox.Show("Алексей Ступин, 31 год, учусь в GeekBrains.", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        public static void TextVisible(bool status)
-        {
-            __Label.Visible = status;
-        }
+        //public static void TextVisible(bool status)
+        //{
+        //    __Label.Visible = status;
+        //}
     }
 }

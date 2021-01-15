@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,6 +11,12 @@ namespace AsteroidGame
         private static Random rand;
         private static MenuVisualObject[] _VisualObjects;
         private static Timer __Timer;
+
+        public static bool Enable
+        {
+            get => __Timer.Enabled;
+            set => __Timer.Enabled = value;
+        }
 
         const int VISUAL_OBJECTS_COUNT = 5000;
 
@@ -35,14 +39,13 @@ namespace AsteroidGame
             __Timer.Start();
         }
 
-        public static void TimerStatus(bool status)
-        {
-            if (status)
-                __Timer.Start();
-            else
-                __Timer.Stop();
-        }
-
+        //public static void TimerStatus(bool status)
+        //{
+        //    if (status)
+        //        __Timer.Start();
+        //    else
+        //        __Timer.Stop();
+        //}
 
         private static void OnTimerTick(object sender, EventArgs e)
         {

@@ -8,11 +8,15 @@ namespace AsteroidGame
     {
         private static BufferedGraphicsContext __Context;
         private static BufferedGraphics __Buffer;
-
         private static VisualObject[] __GameObjects;
         private static Timer __Timer;
-
         private static Random rand;
+
+        public static bool Enable
+        {
+            get => __Timer.Enabled;
+            set => __Timer.Enabled = value;
+        }
 
         public static int Width { get; set; } = 0;
         public static int Height { get; set; } = 0;
@@ -32,13 +36,13 @@ namespace AsteroidGame
             __Timer.Tick += OnTimerTick;
         }
 
-        public static void TimerStatus(bool status)
-        {
-            if (status)
-                __Timer.Start();
-            else
-                __Timer.Stop();
-        }
+        //public static void TimerStatus(bool status)
+        //{
+        //    if (status)
+        //        __Timer.Start();
+        //    else
+        //        __Timer.Stop();
+        //}
 
         private static void OnTimerTick(object sender, EventArgs e)
         {
@@ -48,7 +52,7 @@ namespace AsteroidGame
 
         public static void Load()
         {
-            
+
             const int VISUAL_OBJECTS_COUNT = 30;
 
             __GameObjects = new VisualObject[VISUAL_OBJECTS_COUNT];
@@ -101,6 +105,5 @@ namespace AsteroidGame
                 obj.Update();
             }
         }
-
     }
 }

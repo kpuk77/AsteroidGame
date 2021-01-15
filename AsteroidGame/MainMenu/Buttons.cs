@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace AsteroidGame
 {
@@ -13,6 +11,17 @@ namespace AsteroidGame
         private static Button __BtnExit;
         private static int __BtnWidth = 80;
         private static int __BtnHeight = 30;
+
+        private static bool Visible
+        {
+            get => __BtnStart.Visible;
+            set
+            {
+                __BtnStart.Visible = value;
+                __BtnRecords.Visible = value;
+                __BtnExit.Visible = value;
+            }
+        }
 
         public static void InitializeControls(Form GameForm)
         {
@@ -47,10 +56,16 @@ namespace AsteroidGame
         private static void __BtnStart_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Как реализовать запуск без костылей ?", "Эмм?", MessageBoxButtons.OK, MessageBoxIcon.Question);
-            Menu.TimerStatus(false);
-            Game.TimerStatus(true);
-            ButtonsVisible(false);
-            InfoText.TextVisible(false);
+
+            Menu.Enable = false;
+            Game.Enable = true;
+            Visible = false;
+            InfoText.Visible = false;
+
+            //Menu.TimerStatus(false);
+            //Game.TimerStatus(true);
+            //ButtonsVisible(false);
+            //InfoText.TextVisible(false);
         }
 
         private static void __BtnExit_Click(object sender, EventArgs e)
@@ -58,11 +73,11 @@ namespace AsteroidGame
             Application.Exit();
         }
 
-        private static void ButtonsVisible(bool Status)
-        {
-            __BtnStart.Visible = Status;
-            __BtnRecords.Visible = Status;
-            __BtnExit.Visible = Status;
-        }
+        //private static void ButtonsVisible(bool Status)
+        //{
+        //    __BtnStart.Visible = Status;
+        //    __BtnRecords.Visible = Status;
+        //    __BtnExit.Visible = Status;
+        //}
     }
 }

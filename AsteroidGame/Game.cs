@@ -36,14 +36,6 @@ namespace AsteroidGame
             __Timer.Tick += OnTimerTick;
         }
 
-        //public static void TimerStatus(bool status)
-        //{
-        //    if (status)
-        //        __Timer.Start();
-        //    else
-        //        __Timer.Stop();
-        //}
-
         private static void OnTimerTick(object sender, EventArgs e)
         {
             Update();
@@ -61,27 +53,27 @@ namespace AsteroidGame
             {
                 int size = rand.Next(10, 20);
                 __GameObjects[i] = new VisualObject(
-                    new Point(rand.Next(0, Width), rand.Next(0, Height)),
-                    new Point(rand.Next(-15, 15), rand.Next(-15, 15)),
-                    new Size(size, size));
+                    Position: new Point(rand.Next(0, Width), rand.Next(0, Height)),
+                    Direction: new Point(rand.Next(-15, 15), rand.Next(-15, 15)),
+                    Size: new Size(size, size));
             }
 
             for (int i = __GameObjects.Length / 3; i < __GameObjects.Length - __GameObjects.Length / 3; i++)
             {
                 int size = rand.Next(3, 10);
                 __GameObjects[i] = new RoundStar(
-                    new Point(rand.Next(0, Width), rand.Next(0, Height)),
-                    new Point(rand.Next(-5, -1), 0),
-                    size);
+                    Position: new Point(rand.Next(0, Width), rand.Next(0, Height)),
+                    Direction: new Point(rand.Next(-5, -1), 0),
+                    Size: size);
             }
 
             for (int i = __GameObjects.Length - __GameObjects.Length / 3; i < __GameObjects.Length; i++)
             {
                 int size = rand.Next(3, 10);
                 __GameObjects[i] = new Star(
-                    new Point(rand.Next(0, Width), rand.Next(0, Height)),
-                    new Point(rand.Next(-15, -5), 0),
-                    size);
+                    Position: new Point(rand.Next(0, Width), rand.Next(0, Height)),
+                    Direction: new Point(rand.Next(-15, -5), 0),
+                    Size: size);
             }
         }
 

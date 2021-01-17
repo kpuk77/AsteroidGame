@@ -8,10 +8,30 @@ namespace AsteroidGame
 
         public override void Draw(Graphics g)
         {
-            g.DrawLine(Pens.WhiteSmoke, _Position.X - _Size.Width / 2, _Position.Y - _Size.Height / 2, _Position.X + _Size.Width / 2, _Position.Y + _Size.Height / 2);
-            g.DrawLine(Pens.WhiteSmoke, _Position.X + _Size.Width / 2, _Position.Y - _Size.Height / 2, _Position.X - _Size.Width / 2, _Position.Y + _Size.Height / 2);
-            g.DrawLine(Pens.WhiteSmoke, _Position.X - _Size.Width, _Position.Y, _Position.X + _Size.Width, _Position.Y);
-            g.DrawLine(Pens.WhiteSmoke, _Position.X, _Position.Y - _Size.Height, _Position.X, _Position.Y + _Size.Height);
+            g.DrawLine(
+                pen: Pens.WhiteSmoke,
+                x1: _Position.X - _Size.Width / 2,
+                y1: _Position.Y - _Size.Height / 2,
+                x2: _Position.X + _Size.Width / 2,
+                y2:_Position.Y + _Size.Height / 2);
+            g.DrawLine(
+                Pens.WhiteSmoke, 
+                x1: _Position.X + _Size.Width / 2,
+                y1: _Position.Y - _Size.Height / 2,
+                x2: _Position.X - _Size.Width / 2,
+                y2:_Position.Y + _Size.Height / 2);
+            g.DrawLine(
+                Pens.WhiteSmoke, 
+                x1: _Position.X - _Size.Width, 
+                y1: _Position.Y, 
+                x2: _Position.X + _Size.Width,
+                y2:_Position.Y);
+            g.DrawLine(
+                Pens.WhiteSmoke, 
+                x1: _Position.X,
+                y1: _Position.Y - _Size.Height, 
+                x2: _Position.X,
+                y2:_Position.Y + _Size.Height);
         }
 
         public override void Update()

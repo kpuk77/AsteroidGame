@@ -39,14 +39,6 @@ namespace AsteroidGame
             __Timer.Start();
         }
 
-        //public static void TimerStatus(bool status)
-        //{
-        //    if (status)
-        //        __Timer.Start();
-        //    else
-        //        __Timer.Stop();
-        //}
-
         private static void OnTimerTick(object sender, EventArgs e)
         {
             Update();

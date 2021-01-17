@@ -28,12 +28,8 @@ namespace AsteroidGame
 
         private static void __Label_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Алексей Ступин, 31 год, учусь в GeekBrains.", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Алексей Ступин, 31 год, учусь в GeekBrains.",
+                "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
-        //public static void TextVisible(bool status)
-        //{
-        //    __Label.Visible = status;
-        //}
     }
 }

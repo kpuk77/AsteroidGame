@@ -55,7 +55,7 @@ namespace AsteroidGame
 
         private static void __BtnStart_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Как реализовать запуск без костылей ?", "Эмм?", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            //MessageBox.Show("Как реализовать запуск без костылей ?", "Эмм?", MessageBoxButtons.OK, MessageBoxIcon.Question);
 
             Menu.Enable = false;
             Game.Enable = true;
@@ -72,12 +72,5 @@ namespace AsteroidGame
         {
             Application.Exit();
         }
-
-        //private static void ButtonsVisible(bool Status)
-        //{
-        //    __BtnStart.Visible = Status;
-        //    __BtnRecords.Visible = Status;
-        //    __BtnExit.Visible = Status;
-        //}
     }
 }

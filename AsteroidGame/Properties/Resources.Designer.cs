@@ -63,9 +63,9 @@ namespace AsteroidGame.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap asteroid {
+        internal static System.Drawing.Bitmap Asteroid {
             get {
-                object obj = ResourceManager.GetObject("asteroid", resourceCulture);
+                object obj = ResourceManager.GetObject("Asteroid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

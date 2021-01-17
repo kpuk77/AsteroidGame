@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+
+using AsteroidGame.VisualObjects;
+
 
 namespace AsteroidGame
 {
@@ -10,7 +14,7 @@ namespace AsteroidGame
         private static BufferedGraphics __Buffer;
         private static VisualObject[] __GameObjects;
         private static Timer __Timer;
-        private static Random rand;
+        private static Random __Rand;
 
         public static bool Enable
         {
@@ -25,13 +29,13 @@ namespace AsteroidGame
             Width = GameForm.ClientSize.Width;
             Height = GameForm.ClientSize.Height;
 
-            rand = new Random();
+            __Rand = new Random();
 
             __Context = BufferedGraphicsManager.Current;
             Graphics g = GameForm.CreateGraphics();
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
-            __Timer = new Timer() { Interval = 100 };
+            __Timer = new Timer() { Interval = 50 };
 
             __Timer.Tick += OnTimerTick;
         }
@@ -44,37 +48,50 @@ namespace AsteroidGame
 
         public static void Load()
         {
+            const int STARS_COUNT = 15;
+            const int ROUND_STARS_COUNT = 15;
+            const int BULLETS_COUNT = 10;
+            const int ASTEROIDS_COUNT = 8;
 
-            const int VISUAL_OBJECTS_COUNT = 30;
+            var game_objects = new List<VisualObject>();
 
-            __GameObjects = new VisualObject[VISUAL_OBJECTS_COUNT];
-
-            for (int i = 0; i < __GameObjects.Length / 3; i++)
+            for (int i = 0; i < STARS_COUNT; i++)
             {
-                int size = rand.Next(10, 20);
-                __GameObjects[i] = new VisualObject(
-                    Position: new Point(rand.Next(0, Width), rand.Next(0, Height)),
-                    Direction: new Point(rand.Next(-15, 15), rand.Next(-15, 15)),
-                    Size: new Size(size, size));
+                int size = __Rand.Next(5, 7);
+                game_objects.Add(new Star(
+                    Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
+                    Direction: new Point(__Rand.Next(-15, 15), __Rand.Next(-15, 15)),
+                    Size: size));
             }
 
-            for (int i = __GameObjects.Length / 3; i < __GameObjects.Length - __GameObjects.Length / 3; i++)
+            for (int i = 0; i < BULLETS_COUNT; i++)
             {
-                int size = rand.Next(3, 10);
-                __GameObjects[i] = new RoundStar(
-                    Position: new Point(rand.Next(0, Width), rand.Next(0, Height)),
-                    Direction: new Point(rand.Next(-5, -1), 0),
-                    Size: size);
+                int size = 5;
+                game_objects.Add(new Bullet(
+                    Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
+                    Direction: new Point(__Rand.Next(-5, -1), 0),
+                    Size: size));
             }
 
-            for (int i = __GameObjects.Length - __GameObjects.Length / 3; i < __GameObjects.Length; i++)
+            for (int i = 0; i < ROUND_STARS_COUNT; i++)
             {
-                int size = rand.Next(3, 10);
-                __GameObjects[i] = new Star(
-                    Position: new Point(rand.Next(0, Width), rand.Next(0, Height)),
-                    Direction: new Point(rand.Next(-15, -5), 0),
-                    Size: size);
+                int size = __Rand.Next(3, 5);
+                game_objects.Add(new RoundStar(
+                    Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
+                    Direction: new Point(__Rand.Next(-15, 15), 0),
+                    Size: size));
             }
+
+            for (int i = 0; i < ASTEROIDS_COUNT; i++)
+            {
+                int size = __Rand.Next(40, 60);
+                game_objects.Add(new Asteroid(
+                    Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
+                    Direction: new Point(__Rand.Next(-15, 15), __Rand.Next(-15, 15)),
+                    Size: new Size(size, size)));
+            }
+
+            __GameObjects = game_objects.ToArray();
         }
 
         public static void Draw()
@@ -83,9 +100,7 @@ namespace AsteroidGame
             g.Clear(Color.Black);
 
             foreach (var obj in __GameObjects)
-            {
                 obj.Draw(g);
-            }
 
             __Buffer.Render();
         }
@@ -93,9 +108,7 @@ namespace AsteroidGame
         private static void Update()
         {
             foreach (var obj in __GameObjects)
-            {
                 obj.Update();
-            }
         }
     }
 }

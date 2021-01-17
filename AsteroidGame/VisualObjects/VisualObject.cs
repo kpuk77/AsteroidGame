@@ -1,29 +1,21 @@
 ﻿using System.Drawing;
 
-namespace AsteroidGame
+namespace AsteroidGame.VisualObjects
 {
-    class VisualObject
+    abstract class VisualObject
     {
         protected Point _Position;
         protected Point _Direction;
         protected Size _Size;
 
-        public VisualObject(Point Position, Point Direction, Size Size)
+        protected VisualObject(Point Position, Point Direction, Size Size)
         {
             _Position = Position;
             _Direction = Direction;
             _Size = Size;
         }
 
-        public virtual void Draw(Graphics g)
-        {
-            g.DrawEllipse(
-                pen: Pens.White,
-                x: _Position.X,
-                y: _Position.Y,
-                width: _Size.Width,
-                height: _Size.Height);
-        }
+        public abstract void Draw(Graphics g);
 
         public virtual void Update()
         {

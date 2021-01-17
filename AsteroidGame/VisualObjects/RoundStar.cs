@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 
-namespace AsteroidGame
+namespace AsteroidGame.VisualObjects
 {
-    class RoundStar : VisualObject
+    internal class RoundStar : VisualObject
     {
         public RoundStar(Point Position, Point Direction, int Size) :
             base(Position, Direction, new Size(Size, Size)) { }

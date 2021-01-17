@@ -1,10 +1,11 @@
 ﻿using System.Drawing;
 
-namespace AsteroidGame
+namespace AsteroidGame.VisualObjects
 {
-    class Star : VisualObject
+    internal class Star : VisualObject
     {
-        public Star(Point Position, Point Direction, int Size) : base(Position, Direction, new Size(Size, Size)) { }
+        public Star(Point Position, Point Direction, int Size) :
+            base(Position, Direction, new Size(Size, Size)) { }
 
         public override void Draw(Graphics g)
         {

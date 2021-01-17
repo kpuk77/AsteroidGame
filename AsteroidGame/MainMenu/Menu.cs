@@ -34,7 +34,7 @@ namespace AsteroidGame
             Graphics g = GameForm.CreateGraphics();
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
-            __Timer = new Timer() { Interval = 50 };
+            __Timer = new Timer() { Interval = 1 };
             __Timer.Tick += OnTimerTick;
             __Timer.Start();
         }

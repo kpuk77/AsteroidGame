@@ -35,8 +35,7 @@ namespace AsteroidGame
             Graphics g = GameForm.CreateGraphics();
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
-            __Timer = new Timer() { Interval = 50 };
-
+            __Timer = new Timer() { Interval = 20 };
             __Timer.Tick += OnTimerTick;
         }
 
@@ -60,34 +59,37 @@ namespace AsteroidGame
                 int size = __Rand.Next(5, 7);
                 game_objects.Add(new Star(
                     Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
-                    Direction: new Point(__Rand.Next(-15, 15), __Rand.Next(-15, 15)),
+                    Direction: new Point(__Rand.Next(-5, -1), 0),
                     Size: size));
             }
 
             for (int i = 0; i < BULLETS_COUNT; i++)
             {
+                int speed = 15;
                 int size = 5;
                 game_objects.Add(new Bullet(
                     Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
-                    Direction: new Point(__Rand.Next(-5, -1), 0),
+                    Direction: new Point(speed, 0),
                     Size: size));
             }
 
             for (int i = 0; i < ROUND_STARS_COUNT; i++)
             {
+                int speed = 5;
                 int size = __Rand.Next(3, 5);
                 game_objects.Add(new RoundStar(
                     Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
-                    Direction: new Point(__Rand.Next(-15, 15), 0),
+                    Direction: new Point(__Rand.Next(-speed, speed), 0),
                     Size: size));
             }
 
             for (int i = 0; i < ASTEROIDS_COUNT; i++)
             {
+                int speed = 5;
                 int size = __Rand.Next(40, 60);
                 game_objects.Add(new Asteroid(
                     Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
-                    Direction: new Point(__Rand.Next(-15, 15), __Rand.Next(-15, 15)),
+                    Direction: new Point(__Rand.Next(-speed, speed), __Rand.Next(-5, 5)),
                     Size: new Size(size, size)));
             }
 

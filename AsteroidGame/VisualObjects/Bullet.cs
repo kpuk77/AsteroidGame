@@ -2,18 +2,22 @@
 
 namespace AsteroidGame.VisualObjects
 {
-    internal class Bullet : VisualObject
+    internal class Bullet : VisualObject, ICollision
     {
-        private int _Speed = 3;
-        public Bullet(Point Position, Point Direction, int Size) : base(Position, Direction, new Size(Size, Size)) { }
-        public override void Draw(Graphics g)
-        {
-            g.FillEllipse(Brushes.Red, _Position.X, _Position.Y, _Size.Width, _Size.Height);
-        }
+        public Bullet(Point Position, Point Direction, int Size) :
+            base(Position, Direction, new Size(Size, Size)) { }
 
-        public override void Update()
-        {
-            _Position.X += _Speed;
-        }
+        public Rectangle Rect => new Rectangle(_Position, _Size);
+
+        public bool CheckCollision(ICollision obj) => Rect.IntersectsWith(obj.Rect);
+
+        public override void Draw(Graphics g) => g.FillEllipse(
+            brush: Brushes.Red,
+            x: _Position.X,
+            y: _Position.Y,
+            width: _Size.Width,
+            height: _Size.Height);
+
+        public override void Update() => _Position.X += _Direction.X;
     }
 }

@@ -9,7 +9,7 @@ namespace AsteroidGame
         protected float _Y;
         protected float _Z;
 
-        private int _StarSpeed = 10;
+        private int _StarSpeed = 2;
         private Random _rand;
 
         public MenuVisualObject(float X, float Y, float Z)

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace AsteroidGame.Menu
+namespace AsteroidGame
 {
     static class Menu
     {
@@ -12,6 +10,13 @@ namespace AsteroidGame.Menu
         private static BufferedGraphics __Buffer;
         private static Random rand;
         private static MenuVisualObject[] _VisualObjects;
+        private static Timer __Timer;
+
+        public static bool Enable
+        {
+            get => __Timer.Enabled;
+            set => __Timer.Enabled = value;
+        }
 
         const int VISUAL_OBJECTS_COUNT = 5000;
 
@@ -20,7 +25,6 @@ namespace AsteroidGame.Menu
 
         public  static void Initialize(Form GameForm)
         {
-            InitializeControls(GameForm);
             rand = new Random();
 
             Width = GameForm.ClientSize.Width;
@@ -30,33 +34,9 @@ namespace AsteroidGame.Menu
             Graphics g = GameForm.CreateGraphics();
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
-            Timer timer = new Timer() { Interval = 50 };
-            timer.Tick += OnTimerTick;
-            timer.Start();
-        }
-
-        private static void InitializeControls(Form GameForm)
-        {
-            Button btnStart = new Button();
-            btnStart.Text = "Новая игра";
-            btnStart.Size = new Size(60, 20);
-            btnStart.Location = new Point(Width / 2 - btnStart.Size.Width / 2, Height / 2 - btnStart.Size.Height);
-            GameForm.Controls.Add(btnStart);
-            btnStart.BringToFront();
-
-            Button btnRecords = new Button();
-            btnRecords.Text = "Рекорды";
-            btnRecords.Size = btnStart.Size;
-            btnRecords.Location = new Point(btnStart.Location.X, btnStart.Location.Y - btnRecords.Size.Height + 5);
-            GameForm.Controls.Add(btnRecords);
-            btnRecords.BringToFront();
-
-            Button btnExit = new Button();
-            btnExit.Text = "Выход";
-            btnExit.Size = btnStart.Size;
-            btnExit.Location = new Point(btnStart.Location.X, btnRecords.Location.Y - btnExit.Size.Height + 5);
-            GameForm.Controls.Add(btnExit);
-            btnExit.BringToFront();
+            __Timer = new Timer() { Interval = 50 };
+            __Timer.Tick += OnTimerTick;
+            __Timer.Start();
         }
 
         private static void OnTimerTick(object sender, EventArgs e)
@@ -86,7 +66,6 @@ namespace AsteroidGame.Menu
             {
                 obj.Draw(g);
             }
-
             __Buffer.Render();
         }
 
@@ -97,7 +76,5 @@ namespace AsteroidGame.Menu
                 obj.Update();
             }
         }
-
-       
     }
 }

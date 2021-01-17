@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-
-namespace AsteroidGame.Menu
+﻿namespace AsteroidGame
 {
     class ScreenStar : MenuVisualObject
     {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Drawing;
 
 namespace AsteroidGame
 {
@@ -21,9 +18,11 @@ namespace AsteroidGame
         public virtual void Draw(Graphics g)
         {
             g.DrawEllipse(
-                Pens.White,
-                _Position.X, _Position.Y,
-                _Size.Width, _Size.Height);
+                pen: Pens.White,
+                x: _Position.X,
+                y: _Position.Y,
+                width: _Size.Width,
+                height: _Size.Height);
         }
 
         public virtual void Update()
@@ -31,6 +30,5 @@ namespace AsteroidGame
             _Position.X = (_Position.X + _Direction.X + Game.Width) % Game.Width;
             _Position.Y = (_Position.Y + _Direction.Y + Game.Height) % Game.Height;
         }
-
     }
 }

@@ -1,18 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using AsteroidGame.Menu;
 
 namespace AsteroidGame
 {
     static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
@@ -31,13 +23,16 @@ namespace AsteroidGame
 
             game_form.Show();
 
-            Menu.Menu.Initialize(game_form);
-            Menu.Menu.Load();
-            Menu.Menu.Draw();
+            Menu.Initialize(game_form);
+            Menu.Load();
+            Menu.Draw();
+            InfoText.Initialize(game_form);
 
-            //Game.Initialize(game_form);
-            //Game.Load();
-            //Game.Draw();
+            Buttons.InitializeControls(game_form);
+
+            Game.Initialize(game_form);
+            Game.Load();
+            Game.Draw();
 
             Application.Run(game_form);
         }

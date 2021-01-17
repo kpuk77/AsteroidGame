@@ -8,10 +8,15 @@ namespace AsteroidGame
     {
         private static BufferedGraphicsContext __Context;
         private static BufferedGraphics __Buffer;
-
         private static VisualObject[] __GameObjects;
-
+        private static Timer __Timer;
         private static Random rand;
+
+        public static bool Enable
+        {
+            get => __Timer.Enabled;
+            set => __Timer.Enabled = value;
+        }
 
         public static int Width { get; set; } = 0;
         public static int Height { get; set; } = 0;
@@ -26,10 +31,9 @@ namespace AsteroidGame
             Graphics g = GameForm.CreateGraphics();
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
-            Timer timer = new Timer() { Interval = 100 };
+            __Timer = new Timer() { Interval = 100 };
 
-            timer.Tick += OnTimerTick;
-            timer.Start();
+            __Timer.Tick += OnTimerTick;
         }
 
         private static void OnTimerTick(object sender, EventArgs e)
@@ -40,7 +44,7 @@ namespace AsteroidGame
 
         public static void Load()
         {
-            
+
             const int VISUAL_OBJECTS_COUNT = 30;
 
             __GameObjects = new VisualObject[VISUAL_OBJECTS_COUNT];
@@ -49,27 +53,27 @@ namespace AsteroidGame
             {
                 int size = rand.Next(10, 20);
                 __GameObjects[i] = new VisualObject(
-                    new Point(rand.Next(0, Width), rand.Next(0, Height)),
-                    new Point(rand.Next(-15, 15), rand.Next(-15, 15)),
-                    new Size(size, size));
+                    Position: new Point(rand.Next(0, Width), rand.Next(0, Height)),
+                    Direction: new Point(rand.Next(-15, 15), rand.Next(-15, 15)),
+                    Size: new Size(size, size));
             }
 
             for (int i = __GameObjects.Length / 3; i < __GameObjects.Length - __GameObjects.Length / 3; i++)
             {
                 int size = rand.Next(3, 10);
                 __GameObjects[i] = new RoundStar(
-                    new Point(rand.Next(0, Width), rand.Next(0, Height)),
-                    new Point(rand.Next(-5, -1), 0),
-                    size);
+                    Position: new Point(rand.Next(0, Width), rand.Next(0, Height)),
+                    Direction: new Point(rand.Next(-5, -1), 0),
+                    Size: size);
             }
 
             for (int i = __GameObjects.Length - __GameObjects.Length / 3; i < __GameObjects.Length; i++)
             {
                 int size = rand.Next(3, 10);
                 __GameObjects[i] = new Star(
-                    new Point(rand.Next(0, Width), rand.Next(0, Height)),
-                    new Point(rand.Next(-15, -5), 0),
-                    size);
+                    Position: new Point(rand.Next(0, Width), rand.Next(0, Height)),
+                    Direction: new Point(rand.Next(-15, -5), 0),
+                    Size: size);
             }
         }
 
@@ -93,6 +97,5 @@ namespace AsteroidGame
                 obj.Update();
             }
         }
-
     }
 }

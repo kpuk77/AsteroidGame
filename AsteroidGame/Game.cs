@@ -13,6 +13,8 @@ namespace AsteroidGame
         private static BufferedGraphicsContext __Context;
         private static BufferedGraphics __Buffer;
         private static VisualObject[] __GameObjects;
+        private static Asteroid[] __Asteroids;
+        private static Bullet[] __Bullets;
         private static Timer __Timer;
         private static Random __Rand;
 
@@ -53,6 +55,8 @@ namespace AsteroidGame
             const int ASTEROIDS_COUNT = 8;
 
             var game_objects = new List<VisualObject>();
+            __Asteroids = new Asteroid[ASTEROIDS_COUNT];
+            __Bullets = new Bullet[BULLETS_COUNT];
 
             for (int i = 0; i < STARS_COUNT; i++)
             {
@@ -65,11 +69,11 @@ namespace AsteroidGame
 
             for (int i = 0; i < BULLETS_COUNT; i++)
             {
-                int speed = 15;
-                game_objects.Add(new Bullet(
+                int speed = 5;
+                __Bullets[i] = new Bullet(
                     Position: new Point(0, __Rand.Next(0, Height)),
                     Direction: new Point(speed, 0),
-                    Size: new Size(10, 5)));
+                    Size: new Size(10, 5));
             }
 
             for (int i = 0; i < ROUND_STARS_COUNT; i++)
@@ -86,10 +90,10 @@ namespace AsteroidGame
             {
                 int speed = 5;
                 int size = __Rand.Next(40, 60);
-                game_objects.Add(new Asteroid(
+                __Asteroids[i] = new Asteroid(
                     Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
                     Direction: new Point(__Rand.Next(-speed, speed), __Rand.Next(-5, 5)),
-                    Size: new Size(size, size)));
+                    Size: new Size(size, size));
             }
 
             __GameObjects = game_objects.ToArray();
@@ -103,14 +107,31 @@ namespace AsteroidGame
             foreach (var obj in __GameObjects)
                 obj.Draw(g);
 
+            foreach (var a in __Asteroids)
+                a.Draw(g);
+
+            foreach (var b in __Bullets)
+                b.Draw(g);
+
             __Buffer.Render();
         }
 
         private static void Update()
         {
             foreach (var obj in __GameObjects)
-            {
                 obj.Update();
+
+            foreach (var a in __Asteroids)
+            {
+                a.Update();
+                foreach (var b in __Bullets)
+                {
+                    if (a.CheckCollision(b))
+                    {
+                        System.Media.SystemSounds.Hand.Play();
+                    }
+                    b.Update();
+                }
             }
         }
     }

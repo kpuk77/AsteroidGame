@@ -66,11 +66,10 @@ namespace AsteroidGame
             for (int i = 0; i < BULLETS_COUNT; i++)
             {
                 int speed = 15;
-                int size = 5;
                 game_objects.Add(new Bullet(
-                    Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
+                    Position: new Point(0, __Rand.Next(0, Height)),
                     Direction: new Point(speed, 0),
-                    Size: size));
+                    Size: new Size(10, 5)));
             }
 
             for (int i = 0; i < ROUND_STARS_COUNT; i++)
@@ -110,7 +109,9 @@ namespace AsteroidGame
         private static void Update()
         {
             foreach (var obj in __GameObjects)
+            {
                 obj.Update();
+            }
         }
     }
 }

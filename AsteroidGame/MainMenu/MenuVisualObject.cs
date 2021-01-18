@@ -35,6 +35,7 @@ namespace AsteroidGame
         public virtual void Update()
         {
             _Z -= _StarSpeed;
+
             if (_Z < 1)
             {
                 _X = _rand.Next(-Menu.Width, Menu.Width);

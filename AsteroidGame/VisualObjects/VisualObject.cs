@@ -2,7 +2,7 @@
 
 namespace AsteroidGame.VisualObjects
 {
-    abstract class VisualObject
+    internal abstract class VisualObject
     {
         protected Point _Position;
         protected Point _Direction;
@@ -17,10 +17,6 @@ namespace AsteroidGame.VisualObjects
 
         public abstract void Draw(Graphics g);
 
-        public virtual void Update()
-        {
-            _Position.X = (_Position.X + _Direction.X + Game.Width) % Game.Width;
-            _Position.Y = (_Position.Y + _Direction.Y + Game.Height) % Game.Height;
-        }
+        public abstract void Update();
     }
 }

@@ -128,7 +128,9 @@ namespace AsteroidGame
                 {
                     if (a.CheckCollision(b))
                     {
-                        System.Media.SystemSounds.Hand.Play();
+                        //System.Media.SystemSounds.Hand.Play();
+                        b.SetPosition(0, __Rand.Next(0, Height));
+                        a.SetPosition(Width, __Rand.Next(0, Height));
                     }
                     b.Update();
                 }

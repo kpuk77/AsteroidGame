@@ -14,12 +14,15 @@ namespace AsteroidGame
 
             Form game_form = new Form();
 
-            game_form.Width = 800;
+            game_form.Width = 1000;
             game_form.Height = 600;
             game_form.Text = "Asteroid game";
             game_form.MinimizeBox = false;
             game_form.MaximizeBox = false;
             game_form.FormBorderStyle = FormBorderStyle.Fixed3D;
+
+            if (game_form.Width > 1000 || game_form.Height > 1000 || game_form.Width < 0 || game_form.Height < 0)
+                throw new ArgumentOutOfRangeException();
 
             game_form.Show();
 

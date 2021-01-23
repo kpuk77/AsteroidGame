@@ -14,11 +14,18 @@ namespace AsteroidGame.VisualObjects
 
         public override void Draw(Graphics g)
         {
+            if (!Enabled) return;
+
             var rect = Rect;
             g.FillEllipse(Brushes.Red, rect);
             g.DrawEllipse(Pens.White, rect);
         }
 
-        public override void Update() => _Position.X += _Direction.X;
+        public override void Update()
+        {
+            if (!Enabled) return;
+
+            _Position.X += _Direction.X;
+        }
     }
 }

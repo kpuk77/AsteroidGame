@@ -8,6 +8,8 @@ namespace AsteroidGame.VisualObjects
         protected Point _Direction;
         protected Size _Size;
 
+        protected bool Enabled { get; set; } = false;
+
         protected VisualObject(Point Position, Point Direction, Size Size)
         {
             _Position = Position;
@@ -19,10 +21,8 @@ namespace AsteroidGame.VisualObjects
 
         public abstract void Update();
 
-        public void SetPosition(int X, int Y)
-        {
-            _Position.X = X;
-            _Position.Y = Y;
-        }
+        public void SetPosition(int X, int Y) => SetPosition(new Point(X, Y));
+
+        public void SetPosition(Point point) => _Position = point;
     }
 }

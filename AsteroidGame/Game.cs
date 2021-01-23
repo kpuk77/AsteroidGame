@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 using AsteroidGame.VisualObjects;
@@ -13,8 +14,8 @@ namespace AsteroidGame
         private static BufferedGraphicsContext __Context;
         private static BufferedGraphics __Buffer;
         private static VisualObject[] __GameObjects;
-        private static Asteroid[] __Asteroids;
-        private static Bullet[] __Bullets;
+        //private static Asteroid[] __Asteroids;
+        //private static Bullet[] __Bullets;
         private static Timer __Timer;
         private static Random __Rand;
 
@@ -54,14 +55,14 @@ namespace AsteroidGame
             const int BULLETS_COUNT = 10;
             const int ASTEROIDS_COUNT = 8;
 
-            var game_objects = new List<VisualObject>();
-            __Asteroids = new Asteroid[ASTEROIDS_COUNT];
-            __Bullets = new Bullet[BULLETS_COUNT];
+            var gameObjects = new List<VisualObject>();
+            //__Asteroids = new Asteroid[ASTEROIDS_COUNT];
+            //__Bullets = new Bullet[BULLETS_COUNT];
 
             for (int i = 0; i < STARS_COUNT; i++)
             {
                 int size = __Rand.Next(5, 7);
-                game_objects.Add(new Star(
+                gameObjects.Add(new Star(
                     Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
                     Direction: new Point(__Rand.Next(-5, -1), 0),
                     Size: size));
@@ -70,17 +71,17 @@ namespace AsteroidGame
             for (int i = 0; i < BULLETS_COUNT; i++)
             {
                 int speed = 5;
-                __Bullets[i] = new Bullet(
+                gameObjects.Add(new Bullet(
                     Position: new Point(0, __Rand.Next(0, Height)),
                     Direction: new Point(speed, 0),
-                    Size: new Size(10, 5));
+                    Size: new Size(10, 5)));
             }
 
             for (int i = 0; i < ROUND_STARS_COUNT; i++)
             {
                 int speed = 5;
                 int size = __Rand.Next(3, 5);
-                game_objects.Add(new RoundStar(
+                gameObjects.Add(new RoundStar(
                     Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
                     Direction: new Point(__Rand.Next(-speed, speed), 0),
                     Size: size));
@@ -90,13 +91,13 @@ namespace AsteroidGame
             {
                 int speed = 5;
                 int size = __Rand.Next(40, 60);
-                __Asteroids[i] = new Asteroid(
+                gameObjects.Add(new Asteroid(
                     Position: new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
                     Direction: new Point(__Rand.Next(-speed, speed), __Rand.Next(-5, 5)),
-                    Size: new Size(size, size));
+                    Size: new Size(size, size)));
             }
 
-            __GameObjects = game_objects.ToArray();
+            __GameObjects = gameObjects.ToArray();
         }
 
         public static void Draw()
@@ -104,37 +105,30 @@ namespace AsteroidGame
             Graphics g = __Buffer.Graphics;
             g.Clear(Color.Black);
 
-            foreach (var obj in __GameObjects)
+            foreach (var obj in __GameObjects.Where(o => Enable))
                 obj.Draw(g);
-
-            foreach (var a in __Asteroids)
-                a.Draw(g);
-
-            foreach (var b in __Bullets)
-                b.Draw(g);
 
             __Buffer.Render();
         }
 
         private static void Update()
         {
-            foreach (var obj in __GameObjects)
+            foreach (var obj in __GameObjects.Where(o => Enable))
                 obj.Update();
 
-            foreach (var a in __Asteroids)
-            {
-                a.Update();
-                foreach (var b in __Bullets)
-                {
-                    if (a.CheckCollision(b))
-                    {
-                        //System.Media.SystemSounds.Hand.Play();
-                        b.SetPosition(0, __Rand.Next(0, Height));
-                        a.SetPosition(Width, __Rand.Next(0, Height));
-                    }
-                    b.Update();
-                }
-            }
+            //foreach (var a in __Asteroids)
+            //{
+            //    a.Update();
+            //    foreach (var b in __Bullets)
+            //    {
+            //        if (a.CheckCollision(b))
+            //        {
+            //            b.SetPosition(0, __Rand.Next(0, Height));
+            //            a.SetPosition(Width, __Rand.Next(0, Height));
+            //        }
+            //        b.Update();
+            //    }
+            //}
         }
     }
 }

@@ -9,6 +9,8 @@ namespace AsteroidGame.VisualObjects
 
         public override void Draw(Graphics g)
         {
+            if (!_Enabled) return;
+
             g.DrawLine(
                 pen: Pens.WhiteSmoke,
                 x1: _Position.X - _Size.Width / 2,
@@ -37,6 +39,8 @@ namespace AsteroidGame.VisualObjects
 
         public override void Update()
         {
+            if (!_Enabled) return;
+
             _Position.X = (_Position.X + _Direction.X + Game.Width) % Game.Width;
         }
     }

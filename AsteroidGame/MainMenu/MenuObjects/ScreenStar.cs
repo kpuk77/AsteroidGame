@@ -1,6 +1,6 @@
-﻿namespace AsteroidGame
+﻿namespace AsteroidGame.MainMenu.MenuObjects
 {
-    class ScreenStar : MenuVisualObject
+    internal class ScreenStar : MenuVisualObject
     {
         public ScreenStar(int X, int Y, int Z) : base(X, Y, Z) { }
     }

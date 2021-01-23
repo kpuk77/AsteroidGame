@@ -1,40 +1,44 @@
 using System;
 using System.Windows.Forms;
+using AsteroidGame.MainMenu;
 
 namespace AsteroidGame
 {
-    static class Program
+    internal static class Program
     {
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Form game_form = new Form();
+            Form gameForm = new Form();
 
-            game_form.Width = 800;
-            game_form.Height = 600;
-            game_form.Text = "Asteroid game";
-            game_form.MinimizeBox = false;
-            game_form.MaximizeBox = false;
-            game_form.FormBorderStyle = FormBorderStyle.Fixed3D;
+            gameForm.Width = 1000;
+            gameForm.Height = 600;
+            gameForm.Text = @"Asteroid game";
+            gameForm.MinimizeBox = false;
+            gameForm.MaximizeBox = false;
+            gameForm.FormBorderStyle = FormBorderStyle.Fixed3D;
 
-            game_form.Show();
+            if (gameForm.Width > 1000 || gameForm.Height > 1000 || gameForm.Width < 0 || gameForm.Height < 0)
+                throw new ArgumentOutOfRangeException();
 
-            Menu.Initialize(game_form);
+            gameForm.Show();
+
+            Menu.Initialize(gameForm);
             Menu.Load();
             Menu.Draw();
-            InfoText.Initialize(game_form);
+            InfoText.Initialize(gameForm);
 
-            Buttons.InitializeControls(game_form);
+            Controls.InitializeControls(gameForm);
 
-            Game.Initialize(game_form);
+            Game.Initialize(gameForm);
             Game.Load();
             Game.Draw();
 
-            Application.Run(game_form);
+            Application.Run(gameForm);
         }
     }
 }

@@ -2,12 +2,12 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace AsteroidGame
+namespace AsteroidGame.MainMenu
 {
-    class InfoText
+    internal class InfoText
     {
         private static Label __Label;
-        public static bool Visible
+        public static bool _Visible
         {
             get => __Label.Visible;
             set => __Label.Visible = value;
@@ -20,16 +20,16 @@ namespace AsteroidGame
             __Label.Text = "Алексей Ступин. Версия: 0.0.1";
             __Label.TextAlign = ContentAlignment.MiddleCenter;
             __Label.BackColor = Color.Transparent;
-            __Label.Location = new Point(form.ClientSize.Width - __Label.Width, form.ClientSize.Height - __Label.Height);
+            __Label.Location = new Point(
+                form.ClientSize.Width - __Label.Width,
+                form.ClientSize.Height - __Label.Height);
             form.Controls.Add(__Label);
 
             __Label.Click += __Label_Click;
         }
 
-        private static void __Label_Click(object sender, EventArgs e)
-        {
+        private static void __Label_Click(object sender, EventArgs e) =>
             MessageBox.Show("Алексей Ступин, 31 год, учусь в GeekBrains.",
                 "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
     }
 }

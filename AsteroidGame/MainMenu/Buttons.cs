@@ -57,7 +57,7 @@ namespace AsteroidGame.MainMenu
             //MessageBox.Show("Как реализовать запуск без костылей ?", "Эмм?", MessageBoxButtons.OK, MessageBoxIcon.Question);
 
             Menu._Enable = false;
-            Game.Enable = true;
+            Game._Enable = true;
             _Visible = false;
             InfoText._Visible = false;
 

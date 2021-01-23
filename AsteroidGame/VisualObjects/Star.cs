@@ -41,7 +41,7 @@ namespace AsteroidGame.VisualObjects
         {
             if (!_Enabled) return;
 
-            _Position.X = (_Position.X + _Direction.X + Game.Width) % Game.Width;
+            _Position.X = (_Position.X + _Direction.X + Game._Width) % Game._Width;
         }
     }
 }

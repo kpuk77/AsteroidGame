@@ -23,11 +23,11 @@ namespace AsteroidGame
         private static Timer __FirstAidTimer;
         private static Random __Rand;
 
-        public static int Score { get; set; }
-        public static int Width { get; set; }
-        public static int Height { get; set; }
+        public static int _Score { get; set; }
+        public static int _Width { get; set; }
+        public static int _Height { get; set; }
 
-        public static bool Enable
+        public static bool _Enable
         {
             get => __Timer.Enabled;
             set
@@ -39,14 +39,14 @@ namespace AsteroidGame
 
         public static void Initialize(Form GameForm)
         {
-            Width = GameForm.ClientSize.Width;
-            Height = GameForm.ClientSize.Height;
+            _Width = GameForm.ClientSize.Width;
+            _Height = GameForm.ClientSize.Height;
 
             __Rand = new Random();
 
             __Context = BufferedGraphicsManager.Current;
             Graphics g = GameForm.CreateGraphics();
-            __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
+            __Buffer = __Context.Allocate(g, new Rectangle(0, 0, _Width, _Height));
 
             __Timer = new Timer() { Interval = 20 };
             __Timer.Tick += OnTimerTick;
@@ -97,12 +97,12 @@ namespace AsteroidGame
 
             var gameObjects = new List<VisualObject>();
 
-            __FirstAid = new FirstAid(__Rand.Next(0, Height));
+            __FirstAid = new FirstAid(__Rand.Next(0, _Height));
             __FirstAid._Enabled = false;
 
             __Bullets = new List<Bullet>();
             __Ship = new Ship(
-                new Point(5, Height / 2),
+                new Point(5, _Height / 2),
                 new Point(10, 10),
                 new Size(150, 42));
 
@@ -112,7 +112,7 @@ namespace AsteroidGame
             {
                 int size = __Rand.Next(5, 7);
                 gameObjects.Add(new Star(
-                    new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
+                    new Point(__Rand.Next(0, _Width), __Rand.Next(0, _Height)),
                     new Point(__Rand.Next(-5, -1), 0),
                     size));
             }
@@ -122,7 +122,7 @@ namespace AsteroidGame
                 int speed = 5;
                 int size = __Rand.Next(3, 5);
                 gameObjects.Add(new RoundStar(
-                    new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
+                    new Point(__Rand.Next(0, _Width), __Rand.Next(0, _Height)),
                     new Point(__Rand.Next(-speed, speed), 0),
                     size));
             }
@@ -131,7 +131,7 @@ namespace AsteroidGame
             {
                 int speed = 5;
                 gameObjects.Add(new Asteroid(
-                    Position: new Point(__Rand.Next(200, Width), __Rand.Next(0, Height)),
+                    Position: new Point(__Rand.Next(200, _Width), __Rand.Next(0, _Height)),
                     Direction: new Point(__Rand.Next(-speed, speed), __Rand.Next(-speed, speed)),
                     Size: new Size(__Rand.Next(40, 60), __Rand.Next(40, 60))));
             }
@@ -141,11 +141,11 @@ namespace AsteroidGame
 
         private static void OnDestroyed(object sender, EventArgs e)
         {
-            Enable = false;
+            _Enable = false;
             var g = __Buffer.Graphics;
             g.Clear(Color.Black);
             g.DrawString("GameOver", new Font(FontFamily.GenericMonospace, 20), Brushes.Red, 200, 200);
-            g.DrawString($"Score: {Score}", new Font(FontFamily.GenericMonospace, 20), Brushes.Yellow, 200, 250);
+            g.DrawString($"Score: {_Score}", new Font(FontFamily.GenericMonospace, 20), Brushes.Yellow, 200, 250);
 
             __Buffer.Render();
         }
@@ -154,7 +154,7 @@ namespace AsteroidGame
         {
             if (!__FirstAid._Enabled) __FirstAid._Enabled = true;
 
-            __FirstAid.SetPosition(50, __Rand.Next(0, Height - __FirstAid.Rect.Size.Height));
+            __FirstAid.SetPosition(50, __Rand.Next(0, _Height - __FirstAid.Rect.Size.Height));
         }
 
         public static void Draw()
@@ -171,10 +171,10 @@ namespace AsteroidGame
             __FirstAid.Draw(g);
 
             g.DrawString($"HP: {__Ship.Energy}", new Font(FontFamily.GenericMonospace, 10), Brushes.Green, 0, 0);
-            g.DrawString($"Score: {Score}", new Font(FontFamily.GenericMonospace, 10), Brushes.Yellow, 0, 13);
+            g.DrawString($"Score: {_Score}", new Font(FontFamily.GenericMonospace, 10), Brushes.Yellow, 0, 13);
 
 
-            if (!Enable) return;
+            if (!_Enable) return;
             __Buffer.Render();
         }
 
@@ -194,7 +194,7 @@ namespace AsteroidGame
                     {
                         bullet._Enabled = false;
                         visualObject._Enabled = false;
-                        Score += 10;
+                        _Score += 10;
                     }
 
                 if (__Ship.CheckCollision(obj))
@@ -216,7 +216,7 @@ namespace AsteroidGame
             {
                 asteroid._Enabled = true;
 
-                asteroid.SetPosition(__Rand.Next(200, Width), __Rand.Next(0, Height));
+                asteroid.SetPosition(__Rand.Next(200, _Width), __Rand.Next(0, _Height));
             }
         }
     }

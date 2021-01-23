@@ -62,7 +62,7 @@ namespace AsteroidGame.MainMenu
         private static void __BtnStart_Click(object sender, EventArgs e)
         {
             Menu._Enable = false;
-            Game.Enable = true;
+            Game._Enable = true;
             _Visible = false;
             InfoText._Visible = false;
         }

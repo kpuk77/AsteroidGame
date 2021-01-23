@@ -43,11 +43,11 @@ namespace AsteroidGame.VisualObjects
             _Energy += pow;
 
             if (_Energy < 0)
-                Game.Enable = false;
+                Game._Enable = false;
         }
 
-        public void MoveUp() => _Position.Y = (_Position.Y - _Direction.Y + Game.Height) % Game.Height;
+        public void MoveUp() => _Position.Y = (_Position.Y - _Direction.Y + Game._Height) % Game._Height;
 
-        public void MoveDown() => _Position.Y = (_Position.Y + _Direction.Y + Game.Height) % Game.Height;
+        public void MoveDown() => _Position.Y = (_Position.Y + _Direction.Y + Game._Height) % Game._Height;
     }
 }

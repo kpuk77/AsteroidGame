@@ -27,6 +27,6 @@ namespace AsteroidGame.VisualObjects
             _Position.X += _Direction.X;
         }
 
-        public bool IsOnDisplay() => _Position.X <= Game.Width;
+        public bool IsOnDisplay() => _Position.X <= Game._Width;
     }
 }

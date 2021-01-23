@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employees", "Employees\Employees.csproj", "{6E7ED2B8-F6FF-4875-ADFF-E67A3395CF93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsteroidGame", "..\AsteroidGameClone\AsteroidGame\AsteroidGame.csproj", "{69C806DA-13D9-46D7-9748-978857A7DA4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsteroidGame", "..\AsteroidGame\AsteroidGame\AsteroidGame.csproj", "{69C806DA-13D9-46D7-9748-978857A7DA4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,7 +4,6 @@ namespace AsteroidGame.VisualObjects
 {
     internal class Bullet : VisualObject, ICollision
     {
-        
         public Bullet(Point Position, Point Direction, Size Size) :
             base(Position, Direction, Size) { }
 
@@ -14,7 +13,7 @@ namespace AsteroidGame.VisualObjects
 
         public override void Draw(Graphics g)
         {
-            if (!Enabled) return;
+            if (!_Enabled) return;
 
             var rect = Rect;
             g.FillEllipse(Brushes.Red, rect);
@@ -23,9 +22,11 @@ namespace AsteroidGame.VisualObjects
 
         public override void Update()
         {
-            if (!Enabled) return;
-
+            if (!_Enabled) return;
+            
             _Position.X += _Direction.X;
         }
+
+        public bool IsOnDisplay() => _Position.X <= Game.Width;
     }
 }

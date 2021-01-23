@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+
 using AsteroidGame.VisualObjects;
 
 
@@ -61,12 +62,10 @@ namespace AsteroidGame
             switch (e.KeyCode)
             {
                 case Keys.Down:
-                    if (__Ship.Rect.Y < Height - __Ship.Rect.Size.Height)
-                        __Ship.MoveDown();
+                    __Ship.MoveDown();
                     break;
                 case Keys.Up:
-                    if (__Ship.Rect.Y > 0)
-                        __Ship.MoveUp();
+                    __Ship.MoveUp();
                     break;
                 case Keys.ControlKey:
                     var emptyBullet = __Bullets.FirstOrDefault(b => !b._Enabled);
@@ -155,7 +154,7 @@ namespace AsteroidGame
         {
             if (!__FirstAid._Enabled) __FirstAid._Enabled = true;
 
-            __FirstAid.SetPosition(50, __Rand.Next(0, Height));
+            __FirstAid.SetPosition(50, __Rand.Next(0, Height - __FirstAid.Rect.Size.Height));
         }
 
         public static void Draw()
@@ -169,7 +168,7 @@ namespace AsteroidGame
             __Bullets.ForEach(b => b.Draw(g));
 
             __Ship.Draw(g);
-            __FirstAid?.Draw(g);
+            __FirstAid.Draw(g);
 
             g.DrawString($"HP: {__Ship.Energy}", new Font(FontFamily.GenericMonospace, 10), Brushes.Green, 0, 0);
             g.DrawString($"Score: {Score}", new Font(FontFamily.GenericMonospace, 10), Brushes.Yellow, 0, 13);
@@ -205,12 +204,10 @@ namespace AsteroidGame
             if (__Ship.CheckCollision(__FirstAid))
                 __FirstAid._Enabled = false;
 
-            //foreach (var visualObject in __VisualGameObjects)
-            //{
-                var visualObjects = __VisualGameObjects.Where(o => o is Asteroid).OrderByDescending(o => o._Enabled).ToArray();
-                
-                if (visualObjects[0]._Enabled == false) AsteroidsReborn(visualObjects);
-            //}
+            var visualObjects = __VisualGameObjects.Where(o => o is Asteroid).
+                OrderByDescending(o => o._Enabled).ToArray();
+
+            if (visualObjects[0]._Enabled == false) AsteroidsReborn(visualObjects);
         }
 
         private static void AsteroidsReborn(VisualObject[] a)

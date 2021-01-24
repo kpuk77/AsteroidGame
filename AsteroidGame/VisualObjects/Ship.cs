@@ -26,13 +26,18 @@ namespace AsteroidGame.VisualObjects
             {
                 ChangeEnergy(-asteroid._Power);
                 if (Energy <= 0)
+                {
                     Destroyed?.Invoke(this, EventArgs.Empty);
+                    ShipActionLog?.Invoke($"[{DateTime.Now:T}]Ship destroyed.");
+                }
             }
 
             if (isCollision && obj is FirstAid firstAid && firstAid._Enabled)
             {
                 if (Energy < _MaxEnergy)
                     ChangeEnergy(firstAid.Power);
+
+                ShipActionLog?.Invoke($"[{DateTime.Now:T}]Ship gain energy:{firstAid.Power}");
             }
 
             return isCollision;
@@ -44,6 +49,13 @@ namespace AsteroidGame.VisualObjects
 
             if (_Energy < 0)
                 Game._Enable = false;
+        }
+
+        private Action<string> ShipActionLog;
+
+        public void ShipLog(Action<string> act)
+        {
+            ShipActionLog = act;
         }
 
         public void MoveUp() => _Position.Y = (_Position.Y - _Direction.Y + Game._Height) % Game._Height;

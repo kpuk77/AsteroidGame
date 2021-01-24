@@ -12,21 +12,28 @@ namespace Employees
     {
         static void Main(string[] args)
         {
-            Staff microsoftCompany = new Staff();
+            Console.WriteLine("Log's:");
+            Console.ReadLine();
 
-            microsoftCompany.AddEmployee(new HourlyPaymentEmployee("Ivan", "Ivanov", Positions.Freelancer, 13));
-            microsoftCompany.AddEmployee(new FixedPaymentEmployee("Vladimir", "Putin", Positions.HiredWorker, 500));
-            microsoftCompany.AddEmployee(new FixedPaymentEmployee("Dmitry", "Medvedev", Positions.HiredWorker, 300));
-            microsoftCompany.AddEmployee(new FixedPaymentEmployee("Angela", "Merkel", Positions.HiredWorker, 900));
-            microsoftCompany.AddEmployee(new HourlyPaymentEmployee("Donald", "Trump", Positions.Freelancer, 10));
-            microsoftCompany.AddEmployee(new HourlyPaymentEmployee("C#", "Programmer", Positions.Freelancer, 1000));
+            #region Bardak
 
-            microsoftCompany.Sort();
+            //Staff microsoftCompany = new Staff();
 
-            foreach (var item in microsoftCompany)
-            {
-                Console.WriteLine(item);
-            }
+            //microsoftCompany.AddEmployee(new HourlyPaymentEmployee("Ivan", "Ivanov", Positions.Freelancer, 13));
+            //microsoftCompany.AddEmployee(new FixedPaymentEmployee("Vladimir", "Putin", Positions.HiredWorker, 500));
+            //microsoftCompany.AddEmployee(new FixedPaymentEmployee("Dmitry", "Medvedev", Positions.HiredWorker, 300));
+            //microsoftCompany.AddEmployee(new FixedPaymentEmployee("Angela", "Merkel", Positions.HiredWorker, 900));
+            //microsoftCompany.AddEmployee(new HourlyPaymentEmployee("Donald", "Trump", Positions.Freelancer, 10));
+            //microsoftCompany.AddEmployee(new HourlyPaymentEmployee("C#", "Programmer", Positions.Freelancer, 1000));
+
+            //microsoftCompany.Sort();
+
+            //foreach (var item in microsoftCompany)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            #endregion
         }
     }
 }

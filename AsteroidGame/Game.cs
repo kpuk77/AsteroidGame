@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
+using AsteroidGame.Service;
 using AsteroidGame.VisualObjects;
 
 
@@ -11,6 +11,8 @@ namespace AsteroidGame
 {
     internal static class Game
     {
+        private static Action<string> __Log;
+        private static Logger __Logger;
         private static BufferedGraphicsContext __Context;
         private static BufferedGraphics __Buffer;
 
@@ -44,6 +46,11 @@ namespace AsteroidGame
 
             __Rand = new Random();
 
+            __Logger = new Logger();
+
+            //__Log = __Logger.LogInConsole;
+            __Log += __Logger.LogInFile;
+
             __Context = BufferedGraphicsManager.Current;
             Graphics g = GameForm.CreateGraphics();
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, _Width, _Height));
@@ -63,9 +70,11 @@ namespace AsteroidGame
             {
                 case Keys.Down:
                     __Ship.MoveDown();
+                    __Log?.Invoke($"[{DateTime.Now:T}]MoveDown.");
                     break;
                 case Keys.Up:
                     __Ship.MoveUp();
+                    __Log?.Invoke($"[{DateTime.Now:T}]MoveUp.");
                     break;
                 case Keys.ControlKey:
                     var emptyBullet = __Bullets.FirstOrDefault(b => !b._Enabled);
@@ -79,6 +88,7 @@ namespace AsteroidGame
                         new Point(__Ship.Rect.Width, __Ship.Rect.Y + __Ship.Rect.Height / 2),
                         new Point(15, 0),
                         new Size(5, 5)));
+                    __Log?.Invoke($"[{DateTime.Now:T}]Shoot on coords Y: {__Ship.Rect.Y}.");
                     break;
             }
         }
@@ -106,6 +116,7 @@ namespace AsteroidGame
                 new Point(10, 10),
                 new Size(150, 42));
 
+            __Ship.ShipLog(__Log);
             __Ship.Destroyed += OnDestroyed;
 
             for (int i = 0; i < STARS_COUNT; i++)
@@ -155,6 +166,7 @@ namespace AsteroidGame
             if (!__FirstAid._Enabled) __FirstAid._Enabled = true;
 
             __FirstAid.SetPosition(50, __Rand.Next(0, _Height - __FirstAid.Rect.Size.Height));
+            __Log?.Invoke($"[{DateTime.Now:T}]FirstAid spawn on coords Y: {__FirstAid.Rect.Y}");
         }
 
         public static void Draw()
@@ -195,14 +207,17 @@ namespace AsteroidGame
                         bullet._Enabled = false;
                         visualObject._Enabled = false;
                         _Score += 10;
+                        __Log?.Invoke($"[{DateTime.Now:T}]Asteroid and bullet collision X: {bullet.Rect.X} Y:{bullet.Rect.Y}");
                     }
 
                 if (__Ship.CheckCollision(obj))
+                {
                     visualObject._Enabled = false;
+                    __Log?.Invoke($"[{DateTime.Now:T}]Ship collision with {obj.GetType()} on X: {__Ship.Rect.X} Y: {__Ship.Rect.Y}. Ship energy: {__Ship.Energy}");
+                }
             }
 
-            if (__Ship.CheckCollision(__FirstAid))
-                __FirstAid._Enabled = false;
+            if (__Ship.CheckCollision(__FirstAid)) __FirstAid._Enabled = false;
 
             var visualObjects = __VisualGameObjects.Where(o => o is Asteroid).
                 OrderByDescending(o => o._Enabled).ToArray();
@@ -217,6 +232,8 @@ namespace AsteroidGame
                 asteroid._Enabled = true;
 
                 asteroid.SetPosition(__Rand.Next(200, _Width), __Rand.Next(0, _Height));
+
+                __Log?.Invoke($"[{DateTime.Now:T}]Asteroids respawn.");
             }
         }
     }

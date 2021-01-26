@@ -13,7 +13,7 @@ namespace AsteroidGame.VisualObjects
 
         public override void Draw(Graphics g)
         {
-            if (!_Enabled) return;
+            if (!Enabled) return;
 
             var rect = Rect;
             g.FillEllipse(Brushes.Red, rect);
@@ -22,7 +22,7 @@ namespace AsteroidGame.VisualObjects
 
         public override void Update()
         {
-            if (!_Enabled) return;
+            if (!Enabled) return;
             
             _Position.X += _Direction.X;
         }

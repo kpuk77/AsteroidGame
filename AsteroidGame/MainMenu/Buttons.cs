@@ -12,7 +12,7 @@ namespace AsteroidGame.MainMenu
         private static int __BtnWidth = 80;
         private static int __BtnHeight = 30;
 
-        private static bool _Visible
+        private static bool Visible
         {
             set
             {
@@ -56,10 +56,10 @@ namespace AsteroidGame.MainMenu
         {
             //MessageBox.Show("Как реализовать запуск без костылей ?", "Эмм?", MessageBoxButtons.OK, MessageBoxIcon.Question);
 
-            Menu._Enable = false;
+            Menu.Enable = false;
             Game.Enable = true;
-            _Visible = false;
-            InfoText._Visible = false;
+            Visible = false;
+            InfoText.Visible = false;
 
             //Menu.TimerStatus(false);
             //Game.TimerStatus(true);

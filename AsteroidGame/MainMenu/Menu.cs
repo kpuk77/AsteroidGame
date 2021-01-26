@@ -13,7 +13,7 @@ namespace AsteroidGame.MainMenu
         private static MenuVisualObject[] __VisualObjects;
         private static Timer __Timer;
 
-        public static bool _Enable
+        public static bool Enable
         {
             get => __Timer.Enabled;
             set => __Timer.Enabled = value;
@@ -21,19 +21,19 @@ namespace AsteroidGame.MainMenu
 
         private const int _VISUAL_OBJECTS_COUNT = 5000;
 
-        public static int _Width { get; set; }
-        public static int _Height { get; set; }
+        public static int Width { get; set; }
+        public static int Height { get; set; }
 
         public static void Initialize(Form GameForm)
         {
             __Rand = new Random();
 
-            _Width = GameForm.ClientSize.Width;
-            _Height = GameForm.ClientSize.Height;
+            Width = GameForm.ClientSize.Width;
+            Height = GameForm.ClientSize.Height;
 
             __Context = BufferedGraphicsManager.Current;
             Graphics g = GameForm.CreateGraphics();
-            __Buffer = __Context.Allocate(g, new Rectangle(0, 0, _Width, _Height));
+            __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
             __Timer = new Timer() { Interval = 1 };
             __Timer.Tick += OnTimerTick;
@@ -52,9 +52,9 @@ namespace AsteroidGame.MainMenu
             for (int i = 0; i < __VisualObjects.Length; i++)
             {
                 __VisualObjects[i] = new ScreenStar(
-                    __Rand.Next(-_Width, _Width),
-                    __Rand.Next(-_Height, _Height),
-                    __Rand.Next(1, _Width));
+                    __Rand.Next(-Width, Width),
+                    __Rand.Next(-Height, Height),
+                    __Rand.Next(1, Width));
             }
         }
 

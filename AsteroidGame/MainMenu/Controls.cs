@@ -12,7 +12,7 @@ namespace AsteroidGame.MainMenu
         private static int __BtnWidth = 80;
         private static int __BtnHeight = 30;
 
-        private static bool _Visible
+        private static bool Visible
         {
             set
             {
@@ -61,10 +61,10 @@ namespace AsteroidGame.MainMenu
 
         private static void __BtnStart_Click(object sender, EventArgs e)
         {
-            Menu._Enable = false;
+            Menu.Enable = false;
             Game.Enable = true;
-            _Visible = false;
-            InfoText._Visible = false;
+            Visible = false;
+            InfoText.Visible = false;
         }
 
         private static void __BtnExit_Click(object sender, EventArgs e) => Application.Exit();

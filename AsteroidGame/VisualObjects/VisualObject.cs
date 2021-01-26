@@ -8,7 +8,7 @@ namespace AsteroidGame.VisualObjects
         protected Point _Direction;
         protected Size _Size;
 
-        public bool _Enabled { get; set; } = true;
+        public bool Enabled { get; set; } = true;
 
         protected VisualObject(Point Position, Point Direction, Size Size)
         {

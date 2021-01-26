@@ -15,7 +15,7 @@
 
         public override double AverageSalary()
         {
-            return 20.8 * 8 * _Salary;
+            return 20.8 * 8 * Salary;
         }
     }
 }

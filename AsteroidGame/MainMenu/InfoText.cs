@@ -7,7 +7,7 @@ namespace AsteroidGame.MainMenu
     internal class InfoText
     {
         private static Label __Label;
-        public static bool _Visible
+        public static bool Visible
         {
             get => __Label.Visible;
             set => __Label.Visible = value;

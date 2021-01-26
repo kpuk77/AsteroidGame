@@ -8,7 +8,7 @@
 
         public override double AverageSalary()
         {
-            return _Salary;
+            return Salary;
         }
     }
 }

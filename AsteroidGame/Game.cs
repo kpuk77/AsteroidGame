@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+
 using AsteroidGame.Service;
 using AsteroidGame.VisualObjects;
 
@@ -25,11 +26,11 @@ namespace AsteroidGame
         private static Timer __FirstAidTimer;
         private static Random __Rand;
 
-        public static int _Score { get; set; }
-        public static int _Width { get; set; }
-        public static int _Height { get; set; }
+        public static int Score { get; set; }
+        public static int Width { get; set; }
+        public static int Height { get; set; }
 
-        public static bool _Enable
+        public static bool Enable
         {
             get => __Timer.Enabled;
             set
@@ -41,8 +42,8 @@ namespace AsteroidGame
 
         public static void Initialize(Form GameForm)
         {
-            _Width = GameForm.ClientSize.Width;
-            _Height = GameForm.ClientSize.Height;
+            Width = GameForm.ClientSize.Width;
+            Height = GameForm.ClientSize.Height;
 
             __Rand = new Random();
 
@@ -53,7 +54,7 @@ namespace AsteroidGame
 
             __Context = BufferedGraphicsManager.Current;
             Graphics g = GameForm.CreateGraphics();
-            __Buffer = __Context.Allocate(g, new Rectangle(0, 0, _Width, _Height));
+            __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
             __Timer = new Timer() { Interval = 20 };
             __Timer.Tick += OnTimerTick;
@@ -70,25 +71,25 @@ namespace AsteroidGame
             {
                 case Keys.Down:
                     __Ship.MoveDown();
-                    __Log?.Invoke($"[{DateTime.Now:T}]MoveDown.");
+                    __Log?.Invoke($"MoveDown.");
                     break;
                 case Keys.Up:
                     __Ship.MoveUp();
-                    __Log?.Invoke($"[{DateTime.Now:T}]MoveUp.");
+                    __Log?.Invoke($"MoveUp.");
                     break;
                 case Keys.ControlKey:
-                    var emptyBullet = __Bullets.FirstOrDefault(b => !b._Enabled);
+                    var emptyBullet = __Bullets.FirstOrDefault(b => !b.Enabled);
                     if (emptyBullet != null)
                     {
                         emptyBullet.SetPosition(__Ship.Rect.Width, __Ship.Rect.Y + __Ship.Rect.Height / 2);
-                        emptyBullet._Enabled = true;
+                        emptyBullet.Enabled = true;
                     }
                     else
                         __Bullets.Add(new Bullet(
                         new Point(__Ship.Rect.Width, __Ship.Rect.Y + __Ship.Rect.Height / 2),
                         new Point(15, 0),
                         new Size(5, 5)));
-                    __Log?.Invoke($"[{DateTime.Now:T}]Shoot on coords Y: {__Ship.Rect.Y}.");
+                    __Log?.Invoke($"Shoot on coords Y: {__Ship.Rect.Y}.");
                     break;
             }
         }
@@ -107,12 +108,12 @@ namespace AsteroidGame
 
             var gameObjects = new List<VisualObject>();
 
-            __FirstAid = new FirstAid(__Rand.Next(0, _Height));
-            __FirstAid._Enabled = false;
+            __FirstAid = new FirstAid(__Rand.Next(0, Height));
+            __FirstAid.Enabled = false;
 
             __Bullets = new List<Bullet>();
             __Ship = new Ship(
-                new Point(5, _Height / 2),
+                new Point(5, Height / 2),
                 new Point(10, 10),
                 new Size(150, 42));
 
@@ -123,7 +124,7 @@ namespace AsteroidGame
             {
                 int size = __Rand.Next(5, 7);
                 gameObjects.Add(new Star(
-                    new Point(__Rand.Next(0, _Width), __Rand.Next(0, _Height)),
+                    new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
                     new Point(__Rand.Next(-5, -1), 0),
                     size));
             }
@@ -133,7 +134,7 @@ namespace AsteroidGame
                 int speed = 5;
                 int size = __Rand.Next(3, 5);
                 gameObjects.Add(new RoundStar(
-                    new Point(__Rand.Next(0, _Width), __Rand.Next(0, _Height)),
+                    new Point(__Rand.Next(0, Width), __Rand.Next(0, Height)),
                     new Point(__Rand.Next(-speed, speed), 0),
                     size));
             }
@@ -142,7 +143,7 @@ namespace AsteroidGame
             {
                 int speed = 5;
                 gameObjects.Add(new Asteroid(
-                    Position: new Point(__Rand.Next(200, _Width), __Rand.Next(0, _Height)),
+                    Position: new Point(__Rand.Next(200, Width), __Rand.Next(0, Height)),
                     Direction: new Point(__Rand.Next(-speed, speed), __Rand.Next(-speed, speed)),
                     Size: new Size(__Rand.Next(40, 60), __Rand.Next(40, 60))));
             }
@@ -152,21 +153,21 @@ namespace AsteroidGame
 
         private static void OnDestroyed(object sender, EventArgs e)
         {
-            _Enable = false;
+            Enable = false;
             var g = __Buffer.Graphics;
             g.Clear(Color.Black);
             g.DrawString("GameOver", new Font(FontFamily.GenericMonospace, 20), Brushes.Red, 200, 200);
-            g.DrawString($"Score: {_Score}", new Font(FontFamily.GenericMonospace, 20), Brushes.Yellow, 200, 250);
+            g.DrawString($"Score: {Score}", new Font(FontFamily.GenericMonospace, 20), Brushes.Yellow, 200, 250);
 
             __Buffer.Render();
         }
 
         private static void FirstAidTimer_Tick(object sender, EventArgs e)
         {
-            if (!__FirstAid._Enabled) __FirstAid._Enabled = true;
+            if (!__FirstAid.Enabled) __FirstAid.Enabled = true;
 
-            __FirstAid.SetPosition(50, __Rand.Next(0, _Height - __FirstAid.Rect.Size.Height));
-            __Log?.Invoke($"[{DateTime.Now:T}]FirstAid spawn on coords Y: {__FirstAid.Rect.Y}");
+            __FirstAid.SetPosition(50, __Rand.Next(0, Height - __FirstAid.Rect.Size.Height));
+            __Log?.Invoke($"FirstAid spawn on coords Y: {__FirstAid.Rect.Y}");
         }
 
         public static void Draw()
@@ -174,7 +175,7 @@ namespace AsteroidGame
             Graphics g = __Buffer.Graphics;
             g.Clear(Color.Black);
 
-            foreach (var obj in __VisualGameObjects.Where(o => o._Enabled))
+            foreach (var obj in __VisualGameObjects.Where(o => o.Enabled))
                 obj.Draw(g);
 
             __Bullets.ForEach(b => b.Draw(g));
@@ -183,57 +184,58 @@ namespace AsteroidGame
             __FirstAid.Draw(g);
 
             g.DrawString($"HP: {__Ship.Energy}", new Font(FontFamily.GenericMonospace, 10), Brushes.Green, 0, 0);
-            g.DrawString($"Score: {_Score}", new Font(FontFamily.GenericMonospace, 10), Brushes.Yellow, 0, 13);
+            g.DrawString($"Score: {Score}", new Font(FontFamily.GenericMonospace, 10), Brushes.Yellow, 0, 13);
 
 
-            if (!_Enable) return;
+            if (!Enable) return;
             __Buffer.Render();
         }
 
         private static void Update()
         {
-            foreach (var visualObject in __VisualGameObjects.Where(o => o._Enabled))
+            foreach (var visualObject in __VisualGameObjects.Where(o => o.Enabled))
                 visualObject.Update();
 
             __Bullets.ForEach(b => b.Update());
 
-            foreach (var visualObject in __VisualGameObjects.Where(o => o._Enabled))
+            foreach (var visualObject in __VisualGameObjects.Where(o => o.Enabled))
             {
                 if (visualObject is not ICollision obj) continue;
 
-                foreach (var bullet in __Bullets.Where(b => b._Enabled))
+                foreach (var bullet in __Bullets.Where(b => b.Enabled))
                     if (bullet.CheckCollision(obj))
                     {
-                        bullet._Enabled = false;
-                        visualObject._Enabled = false;
-                        _Score += 10;
-                        __Log?.Invoke($"[{DateTime.Now:T}]Asteroid and bullet collision X: {bullet.Rect.X} Y:{bullet.Rect.Y}");
+                        bullet.Enabled = false;
+                        visualObject.Enabled = false;
+                        Score += 10;
+                        __Log?.Invoke($"Asteroid and bullet collision X: {bullet.Rect.X} Y:{bullet.Rect.Y}");
                     }
 
                 if (__Ship.CheckCollision(obj))
                 {
-                    visualObject._Enabled = false;
-                    __Log?.Invoke($"[{DateTime.Now:T}]Ship collision with {obj.GetType()} on X: {__Ship.Rect.X} Y: {__Ship.Rect.Y}. Ship energy: {__Ship.Energy}");
+                    visualObject.Enabled = false;
+                    __Log?.Invoke($"Ship collision with {obj.GetType()} on X: {__Ship.Rect.X} Y: {__Ship.Rect.Y}. Ship energy: {__Ship.Energy}");
                 }
             }
 
-            if (__Ship.CheckCollision(__FirstAid)) __FirstAid._Enabled = false;
+            if (__Ship.CheckCollision(__FirstAid)) __FirstAid.Enabled = false;
 
             var visualObjects = __VisualGameObjects.Where(o => o is Asteroid).
-                OrderByDescending(o => o._Enabled).ToArray();
+                OrderByDescending(o => o.Enabled).ToArray();
 
-            if (visualObjects[0]._Enabled == false) AsteroidsReborn(visualObjects);
+            if (visualObjects[0].Enabled == false) AsteroidsReborn(visualObjects);
         }
 
         private static void AsteroidsReborn(VisualObject[] a)
         {
-            foreach (var asteroid in a)
+            var ast = a.ToList();
+            foreach (var asteroid in ast)
             {
-                asteroid._Enabled = true;
+                asteroid.Enabled = true;
 
-                asteroid.SetPosition(__Rand.Next(200, _Width), __Rand.Next(0, _Height));
+                asteroid.SetPosition(__Rand.Next(200, Width), __Rand.Next(0, Height));
 
-                __Log?.Invoke($"[{DateTime.Now:T}]Asteroids respawn.");
+                __Log?.Invoke($"Asteroids respawn.");
             }
         }
     }

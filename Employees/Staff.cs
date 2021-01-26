@@ -6,38 +6,38 @@ namespace Employees
 {
     internal class Staff : IEnumerator, IEnumerable
     {
-        private List<Employee> __List = new List<Employee>();
+        private List<Employee> _List = new List<Employee>();
 
         private int _Position = -1;
 
         public void AddEmployee(Employee Employee)
         {
-            __List.Add(Employee);
+            _List.Add(Employee);
         }
 
         public void Sort()
         {
-            __List.Sort();
+            _List.Sort();
         }
 
         public void Print()
         {
-            Console.WriteLine($"{__List[_Position]._Name} {__List[_Position]._LastName} {__List[_Position]._Position} = {__List[_Position].AverageSalary()}");
+            Console.WriteLine($"{_List[_Position].Name} {_List[_Position].LastName} {_List[_Position].Position} = {_List[_Position].AverageSalary()}");
         }
 
         public object Current
         {
             get
             {
-                if (_Position == -1 || _Position >= __List.Count)
+                if (_Position == -1 || _Position >= _List.Count)
                     throw new InvalidOperationException();
-                return __List[_Position];
+                return _List[_Position];
             }
         }
 
         public bool MoveNext()
         {
-            if (_Position < __List.Count - 1)
+            if (_Position < _List.Count - 1)
             {
                 _Position++;
                 return true;

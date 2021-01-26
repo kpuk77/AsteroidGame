@@ -13,17 +13,17 @@ namespace AsteroidGame.VisualObjects
 
         public override void Draw(Graphics g)
         {
-            if (!_Enabled) return;
+            if (!Enabled) return;
 
             g.DrawImage(_Image, _Position.X, _Position.Y, _Size.Width, _Size.Height);
         }
 
         public override void Update()
         {
-            if (!_Enabled) return;
+            if (!Enabled) return;
 
-            _Position.X = (_Position.X + _Direction.X + Game._Width) % Game._Width;
-            _Position.Y = (_Position.Y + _Direction.Y + Game._Height) % Game._Height;
+            _Position.X = (_Position.X + _Direction.X + Game.Width) % Game.Width;
+            _Position.Y = (_Position.Y + _Direction.Y + Game.Height) % Game.Height;
         }
     }
 }

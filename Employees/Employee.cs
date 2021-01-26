@@ -6,16 +6,16 @@ namespace Employees
     {
         public Employee(string Name, string LastName, Positions Position, float Salary)
         {
-            _Name = Name;
-            _LastName = LastName;
-            _Position = Position;
-            _Salary = Salary;
+            this.Name = Name;
+            this.LastName = LastName;
+            this.Position = Position;
+            this.Salary = Salary;
         }
 
-        public string _Name { get; set; }
-        public string _LastName { get; set; }
-        public Positions _Position { get; set; }
-        protected float _Salary { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public Positions Position { get; set; }
+        protected float Salary { get; set; }
 
         public abstract double AverageSalary();
 
@@ -25,16 +25,16 @@ namespace Employees
                 throw new ArgumentNullException();
 
             var comp = obj as Employee;
-            if (_Name[0] > comp._Name[0])
+            if (Name[0] > comp.Name[0])
                 return 1;
-            if (_Name[0] < comp._Name[0])
+            if (Name[0] < comp.Name[0])
                 return -1;
             return 0;
         }
 
         public override string ToString()
         {
-            return $"{_Name} {_LastName} {_Position} = {AverageSalary()}";
+            return $"{Name} {LastName} {Position} = {AverageSalary()}";
         }
 
         //public int CompareTo([AllowNull] string other)

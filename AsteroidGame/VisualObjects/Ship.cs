@@ -24,20 +24,20 @@ namespace AsteroidGame.VisualObjects
             var isCollision = Rect.IntersectsWith(obj.Rect);
             if (isCollision && obj is Asteroid asteroid)
             {
-                ChangeEnergy(-asteroid._Power);
+                ChangeEnergy(-asteroid.Power);
                 if (Energy <= 0)
                 {
                     Destroyed?.Invoke(this, EventArgs.Empty);
-                    ShipActionLog?.Invoke($"[{DateTime.Now:T}]Ship destroyed.");
+                    _ShipActionLog?.Invoke("Ship destroyed.");
                 }
             }
 
-            if (isCollision && obj is FirstAid firstAid && firstAid._Enabled)
+            if (isCollision && obj is FirstAid firstAid && firstAid.Enabled)
             {
                 if (Energy < _MaxEnergy)
                     ChangeEnergy(firstAid.Power);
 
-                ShipActionLog?.Invoke($"[{DateTime.Now:T}]Ship gain energy:{firstAid.Power}");
+                _ShipActionLog?.Invoke($"Ship gain energy:{firstAid.Power}");
             }
 
             return isCollision;
@@ -48,18 +48,18 @@ namespace AsteroidGame.VisualObjects
             _Energy += pow;
 
             if (_Energy < 0)
-                Game._Enable = false;
+                Game.Enable = false;
         }
 
-        private Action<string> ShipActionLog;
+        private Action<string> _ShipActionLog;
 
         public void ShipLog(Action<string> act)
         {
-            ShipActionLog = act;
+            _ShipActionLog = act;
         }
 
-        public void MoveUp() => _Position.Y = (_Position.Y - _Direction.Y + Game._Height) % Game._Height;
+        public void MoveUp() => _Position.Y = (_Position.Y - _Direction.Y + Game.Height) % Game.Height;
 
-        public void MoveDown() => _Position.Y = (_Position.Y + _Direction.Y + Game._Height) % Game._Height;
+        public void MoveDown() => _Position.Y = (_Position.Y + _Direction.Y + Game.Height) % Game.Height;
     }
 }

@@ -22,9 +22,9 @@ namespace AsteroidGame.MainMenu
 
         public virtual void Draw(Graphics g)
         {
-            float size = Map(_Z, 0, Menu._Width, 5, 0);
-            float x = Map(_X / _Z, 0, 1, 0, Menu._Width) + Menu._Width / 2;
-            float y = Map(_Y / _Z, 0, 1, 0, Menu._Height) + Menu._Height / 2;
+            float size = Map(_Z, 0, Menu.Width, 5, 0);
+            float x = Map(_X / _Z, 0, 1, 0, Menu.Width) + Menu.Width / 2;
+            float y = Map(_Y / _Z, 0, 1, 0, Menu.Height) + Menu.Height / 2;
 
             g.FillEllipse(Brushes.LightGoldenrodYellow, x, y, size, size);
         }
@@ -38,9 +38,9 @@ namespace AsteroidGame.MainMenu
 
             if (_Z < 1)
             {
-                _X = _Rand.Next(-Menu._Width, Menu._Width);
-                _Y = _Rand.Next(-Menu._Height, Menu._Height);
-                _Z = _Rand.Next(1, Menu._Width);
+                _X = _Rand.Next(-Menu.Width, Menu.Width);
+                _Y = _Rand.Next(-Menu.Height, Menu.Height);
+                _Z = _Rand.Next(1, Menu.Width);
             }
         }
     }

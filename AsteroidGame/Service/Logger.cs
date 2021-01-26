@@ -14,8 +14,8 @@ namespace AsteroidGame.Service
             ((StreamWriter) _Writer).AutoFlush = true;
         }
 
-        public void LogInConsole(string msg) => Console.WriteLine(msg);
+        public void LogInConsole(string msg) => Console.WriteLine($"[{DateTime.Now:T}]{msg}");
 
-        public void LogInFile(string msg) => _Writer.WriteLine(msg);
+        public void LogInFile(string msg) => _Writer.WriteLine($"[{DateTime.Now:T}]{msg}");
     }
 }

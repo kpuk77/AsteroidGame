@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employees", "Employees\Employees.csproj", "{6E7ED2B8-F6FF-4875-ADFF-E67A3395CF93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsteroidGame", "..\AsteroidGame\AsteroidGame\AsteroidGame.csproj", "{69C806DA-13D9-46D7-9748-978857A7DA4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsteroidGame", "AsteroidGame\AsteroidGame.csproj", "{69C806DA-13D9-46D7-9748-978857A7DA4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoveLinq", "LoveLinq\LoveLinq.csproj", "{7668BB63-1E43-4930-B51B-47801907FC2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{69C806DA-13D9-46D7-9748-978857A7DA4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69C806DA-13D9-46D7-9748-978857A7DA4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69C806DA-13D9-46D7-9748-978857A7DA4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7668BB63-1E43-4930-B51B-47801907FC2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7668BB63-1E43-4930-B51B-47801907FC2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7668BB63-1E43-4930-B51B-47801907FC2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7668BB63-1E43-4930-B51B-47801907FC2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

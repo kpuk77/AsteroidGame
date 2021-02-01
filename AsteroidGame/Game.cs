@@ -237,6 +237,14 @@ namespace AsteroidGame
 
                 __Log?.Invoke($"Asteroids respawn.");
             }
+
+            var obj = __VisualGameObjects.ToList();
+            obj.Add(new Asteroid(
+                Position: new Point(__Rand.Next(200, Width), __Rand.Next(0, Height)),
+                Direction: new Point(__Rand.Next(-5, 5), __Rand.Next(-5, 5)),
+                Size: new Size(__Rand.Next(40, 60), __Rand.Next(40, 60))));
+
+            __VisualGameObjects = obj.ToArray();
         }
     }
 }
